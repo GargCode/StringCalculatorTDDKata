@@ -4,7 +4,7 @@ require_relative 'lib/calculator'
 require 'pry'
 
 class StringCalc
-  include Calculator
+  include StringCalculator::Calculator
 end
 
 if ARGV.length.positive?
