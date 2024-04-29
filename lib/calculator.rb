@@ -1,16 +1,20 @@
-module Calculator
-  def add(string)
-    raise ArgumentError, 'Input must be a string' if !string.is_a?(String)
-    return 0 if string.empty?
-    numbers = extract_numbers(string)
-    validate_array(numbers)
+# frozen_string_literal: true
 
-    numbers.map(&:to_i).sum
-  end
+module StringCalculator
+  module Calculator
+    def add(string)
+      raise ArgumentError, 'Input must be a string' unless string.is_a?(String)
+      return 0 if string.empty?
 
-  private
+      numbers = extract_numbers(string)
+      validate_array(numbers)
 
-  def extract_numbers(string)
+      numbers.map(&:to_i).sum
+    end
+
+    private
+
+    def extract_numbers(string)
       string = string.gsub('\\n', "\n")
       if string.start_with?('//')
         delimiter_declaration, numbers = string.split("\n", 2)
@@ -23,14 +27,16 @@ module Calculator
       split_string(numbers, delimiter || ',')
     end
 
-  def split_string(string, delimiter)
-    numbers = string.delete(' ')
-    numbers&.split(/#{Regexp.escape(delimiter)}|,|\n/)
-  end
+    def split_string(string, delimiter)
+      numbers = string.delete(' ')
+      numbers&.split(/#{Regexp.escape(delimiter)}|,|\n/)
+    end
 
-  def validate_array(numbers)
-    raise ArgumentError, 'Invalid Input' if numbers&.any?(&:empty?)
-    negatives = numbers&.select { |num| num.to_i.negative? }
-    raise ArgumentError, "Negative numbers are not allowed: #{negatives.join(', ')}" if negatives&.any?
+    def validate_array(numbers)
+      raise ArgumentError, 'Invalid Input' if numbers&.any?(&:empty?)
+
+      negatives = numbers&.select { |num| num.to_i.negative? }
+      raise ArgumentError, "Negative numbers are not allowed: #{negatives.join(', ')}" if negatives&.any?
+    end
   end
 end
