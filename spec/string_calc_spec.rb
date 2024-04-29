@@ -10,5 +10,13 @@ RSpec.describe StringCalc do
 		it "return 0 for empty string" do
 			expect(input_value.add('')).to eq(0)
 		end
+
+		it "return the same number if has single input" do
+			expect(input_value.add('1')).to eq(1)
+		end
+
+		it "add number seprate by ','" do
+			expect(input_value.add('1, 2, 3')).to eq(6)
+		end
 	end
 end
