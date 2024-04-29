@@ -18,5 +18,13 @@ RSpec.describe StringCalc do
 		it "add number seprate by ','" do
 			expect(input_value.add('1, 2, 3')).to eq(6)
 		end
+
+		it 'handles newlines as delimiters' do
+	      expect(input_value.add("1\n2	,3")).to eq(6)
+	    end
+
+	    it 'handles newlines as delimiters' do
+	      expect(input_value.add("1\n2\n3")).to eq(6)
+	    end
 	end
 end
