@@ -36,5 +36,9 @@ RSpec.describe StringCalc do
         expect(input_value.add("//*\n1\n2*3\n4")).to eq(10)
         expect(input_value.add("//#\n1\n2#5")).to eq(8)
       end
+
+      it 'return error for negative numbers as input' do
+        expect { input_value.add('-1, -2 \n -3') }.to raise_error(ArgumentError, 'Negative numbers are not allowed: -1, -2, -3')
+      end
   end
 end
